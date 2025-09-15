@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}Produk Lampu{% endblock %}
+
+{% block content %}
+<h2 class="home-page">Produk Lampu</h2>
+
+<div class="shop">
+  {% for product in products %}
+    <div class="card">
+      {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      {% else %}
+        <img src="{% static 'users/images/noimage.jpg' %}" alt="{{ product.name }}">
+      {% endif %}
+
+      <h2 class="info-st">{{ product.name }}</h2>
+      <p class="desc-st">{{ product.description }}</p>
+      <p class="price">Rp {{ product.price|floatformat:0|intcomma }}</p>
+
+      {% if user.is_authenticated %}
+        <form method="POST" action="{% url 'checkout' product.id %}">
+          {% csrf_token %}
+          <button type="submit" onclick="openPopup()">Checkout</button>
+        </form>
+      {% else %}
+        <button type="button" onclick="alert('Harus register & login terlebih dahulu sebelum checkout!')">
+          Checkout
+        </button>
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>Tidak ada produk lampu tersedia.</p>
+  {% endfor %}
+</div>
+{% endblock %}

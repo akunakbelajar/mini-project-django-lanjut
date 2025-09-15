@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Karbu / Throttle Body{% endblock %}
+
+{% block content %}
+
+<h2 class="home-page">Selamat datang di Halaman Karbu / Throttle Body</h2>
+
+{% if user.is_authenticated %}
+
+    <p class="home-header">Halo, <b>{{ user.username }}</b>! Apa jenis karbu atau throttle body yang kamu cari hari ini?</p>
+    <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+
+    <div class="shop">
+        <!-- Contoh Card Karbu/Throttle Body -->
+        <div class="card">
+            <img src="{% static 'products/karbu1.jpg' %}" alt="Karbu 1">
+            <h2>Karbu 28mm</h2>
+            <p class="desc-st">Cocok untuk motor bebek & matic.</p>
+            <p class="price">Rp 350.000</p>
+            <button class="buy-button">Beli Sekarang</button>
+        </div>
+        <div class="card">
+            <img src="{% static 'products/throttle1.jpg' %}" alt="Throttle Body 1">
+            <h2>Throttle Body 30mm</h2>
+            <p class="desc-st">Untuk motor sport & racing.</p>
+            <p class="price">Rp 450.000</p>
+            <button class="buy-button">Beli Sekarang</button>
+        </div>
+        <!-- Tambahkan card lain sesuai stok -->
+    </div>
+
+{% else %}
+   <div class="reg-log">
+
+     <div class="logo-container">
+        <img src="{% static 'users/logopt.png' %}" alt="Logo Web Karbu/Throttle Body">
+     </div>
+
+     <p>Silakan <a class="register-home" href="{% url 'register' %}">Register</a> terlebih dahulu untuk melihat produk kami.</p>
+     <p>Sudah punya akun? <a class="login-home" href="{% url 'login' %}">Login</a> untuk membeli produk.</p>
+   </div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load static %} {% load static humanize %}
+
+
+{% block title %}Karbu / Throttle Body{% endblock %}
+
+{% block content %}
+
+<h2 class="home-page">Produk Karbu | Throttle body</h2>
+
+{% if user.is_authenticated %}
+
+<p class="home-header">Halo, <b>{{ user.username }}</b>! Apa jenis karbu atau throttle body yang kamu cari?</p>
+
+<div class="shop">
+    {% if products %}
+        {% for product in products %}
+            <div class="card">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <h2>{{ product.name }}</h2>
+                <p class="desc-st">{{ product.description }}</p>
+                <p class="price">Rp {{ product.price|floatformat:0|intcomma }}</p>
+                <a href="{% url 'checkout' product.id %}">
+                    <button class="buy-button">Beli Sekarang</button>
+                </a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-orders">Produk untuk kategori Karbu / Throttle Body belum tersedia.</p>
+    {% endif %}
+</div>
+
+{% else %}
+<div class="reg-log">
+    <div class="logo-container">
+        <img src="{% static 'users/logopt.png' %}" alt="Logo Web Karbu/Throttle Body">
+    </div>
+    <p>Silakan <a class="register-home" href="{% url 'register' %}">Register</a> terlebih dahulu</p>
+    <p>Apa kamu sudah punya akun? <a class="login-home" href="{% url 'login' %}">Login</a> terlebih dahulu</p>
+</div>
+{% endif %}
+
+{% endblock %}

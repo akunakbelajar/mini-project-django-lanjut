@@ -1,0 +1,55 @@
+{% extends "base.html" %} 
+
+{% load static %} {% load humanize %} 
+
+{% block title%}Velg{% endblock %} 
+
+{% block content %}
+<h2 class="home-page">Produk Velg</h2>
+<div class="shop">
+  {% for velg in velgs %}
+  <div class="card">
+    {% if velg.image %}
+    <img src="{{ velg.image.url }}" alt="{{ velg.name }}" /> {% else %}
+    <img
+      src="{% static 'users/images/velg-default.jpg' %}"
+      alt="{{ velg.name }}"
+    />
+    {% endif %}
+    <h2 class="info-st">{{ velg.name }}</h2>
+    <p class="desc-st">{{ velg.description }}</p>
+    <p class="price">Rp {{ velg.price|floatformat:0|intcomma }}</p>
+    {% if user.is_authenticated %}
+    <form method="POST" action="{% url 'checkout' velg.id %}">
+      {% csrf_token %}
+      <button type="submit" onclick="openPopup()">Checkout</button>
+    </form>
+    {% else %}
+    <button
+      type="button"
+      onclick="alert('Harus register & login terlebih dahulu sebelum checkout!')"
+    >
+      Checkout
+    </button>
+    {% endif %}
+  </div>
+  {% empty %}
+  <p>Tidak ada velg tersedia.</p>
+  {% endfor %}
+</div>
+<!-- Popup -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <h2>Terimakasih Telah berbelanja velg di kami</h2>
+    <p class="info-checkout">
+      Pesanan Berhasil, velg pilihanmu sedang kami siapkan.<br />
+      Kami akan segera memprosesnya.<br />
+      Terima kasih telah berbelanja bersama kami 😊
+    </p>
+    <button class="buy-button" type="button" onclick="closePopup()">
+      Belanja Lagi
+    </button>
+  </div>
+</div>
+{% endblock %}

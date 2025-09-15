@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}Store{% endblock %}
+
+{% block content %}
+<h2 class="home-page">Selamat datang di Store</h2>
+
+<p class="home-header">
+  Halo, <b>{{ user.username|default:"Pengunjung" }}</b> apa yang kamu cari?
+</p>
+
+<div class="shop">
+  {% for product in products %}
+    <div class="card">
+      {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      {% else %}
+        <img src="{% static 'users/images/dell.jpg' %}" alt="{{ product.name }}">
+      {% endif %}
+      
+      <h2 class="info-st">{{ product.name }}</h2>
+      <p class="desc-st">{{ product.description }}</p>
+      <p class="price">Rp {{ product.price|floatformat:0|intcomma }}</p>
+
+      {% if is_authenticated %}
+        <!-- Jika sudah login, bisa checkout -->
+        <form method="POST" action="{% url 'checkout' product.id %}">
+          {% csrf_token %}
+          <button type="submit" onclick="openPopup()">Checkout</button>
+        </form>
+      {% else %}
+        <!-- Jika belum login, hanya alert -->
+        <button type="button" onclick="alert('Harus register & login terlebih dahulu sebelum checkout!')">
+          Checkout
+        </button>
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>Tidak ada produk tersedia.</p>
+  {% endfor %}
+</div>
+
+<!-- Popup -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <h2>Terimakasih Telah berbelanja di kami</h2>
+    <p class="info-checkout">
+      Pesanan Berhasil, belanjaanmu sedang kami siapkan.<br>
+      Kami akan segera memprosesnya.<br>
+      Terima kasih telah berbelanja bersama kami 😊
+    </p>
+    <button class="buy-button" type="button" onclick="closePopup()">Belanja Lagi</button>
+  </div>
+</div>
+{% endblock %}

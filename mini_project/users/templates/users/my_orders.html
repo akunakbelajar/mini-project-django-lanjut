@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block title %}Pesanan Saya{% endblock %}
+
+{% block content %}
+  <h2 class="orders-title">Pesanan Saya</h2>
+
+  {% if orders %}
+    <div class="orders-container">
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Produk</th>
+            <th>Harga</th>
+            <th>Tanggal</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+            <tr>
+              <td>{{ order.product.name }}</td>
+             <td>Rp{{ order.product.price|floatformat:0|intcomma }}</td>
+              <td>{{ order.created_at|date:"d M Y H:i" }}</td>
+              <td>
+                <span 
+                  class="status {% if order.status|lower == 'pending' %}pending
+                                {% elif order.status|lower == 'selesai' %}done
+                                {% elif order.status|lower == 'dibatalkan' %}canceled
+                                {% else %}other{% endif %}">
+                  {{ order.status }}
+                </span>
+
+                {% if order.status|lower == "pending" %}
+                  <form action="{% url 'cancel_order' order.id %}" 
+                        method="post" 
+                        style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="cancel-btn" onclick="alert('Pesanan berhasil dibatalkan')">Batalkan</button>
+                  </form>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="no-orders">Belum ada pesanan.</p>
+  {% endif %}
+{% endblock %}

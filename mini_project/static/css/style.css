@@ -1,0 +1,584 @@
+/* === Reset dasar === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffffff, #f4f4f4, #fafafa);
+  color: #222;
+  line-height: 1.6;
+}
+
+/* === Layout Flex Utama === */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1; /* agar main menyesuaikan sisa tinggi */
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* === Navbar === */
+header {
+  width: 100%;
+  background: linear-gradient(90deg, #ffffff, #f9f9f9);
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+nav {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-left, .nav-center, .nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-center {
+  gap: 20px;
+  justify-content: center;
+  flex: 0 1 auto;
+}
+
+.nav-right a {
+  margin-left: 15px;
+}
+
+header nav a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 6px 10px;
+  transition: color 0.3s ease;
+}
+
+header nav a:hover {
+  color: #e63946;
+}
+
+.logo-app {
+  color: #e63946;
+  font-size: 1.3rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.1);
+}
+
+/* === Heading === */
+h2 {
+  margin-bottom: 1.5rem;
+  color: #e63946;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* === Form === */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #e63946;
+  outline: none;
+}
+
+/* === Buttons === */
+button {
+  padding: 0.7rem;
+  background: linear-gradient(135deg, #e63946, #b71c1c);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+  align-self: center;
+  min-width: 150px;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #c92a35, #a31212);
+  transform: scale(1.03);
+}
+
+/* === Links tambahan === */
+p {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+p a {
+  color: #e63946;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+a.logout-button {
+  font-size: large;
+  font-weight: bold;
+  text-decoration: none;
+  color: #e63946;
+  transition: color 0.3s ease;
+}
+
+.logout-button:hover {
+  color: #555;
+}
+
+/* === Input dengan icon === */
+.input-box {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 10px 40px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.input-box .user-icon,
+.input-box .lock-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #666;
+  pointer-events: none;
+}
+
+#toggleBtn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* === Shop & Cards === */
+.shop {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #fff;
+  width: 170px;
+  color: black;
+  border-radius: 12px;
+  font-size: small;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  max-width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.card h2 {
+  margin-top: auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}
+
+.info-st, .desc-st, .price {
+  color: black;
+}
+
+.price {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* === Popup === */
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  width: 500px;
+  max-width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
+  transform: scale(0.7);
+  animation: popUp 0.4s ease forwards;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #444;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  color: red;
+  transform: scale(1.2);
+}
+
+.buy-button {
+  background: linear-gradient(135deg, #e63946, #b71c1c);
+  border: none;
+  width: 170px;
+  height: 40px;
+  border-radius: 25px;
+  margin-top: 15px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 5px 12px rgba(230, 57, 70, 0.3);
+}
+
+.buy-button:hover {
+  background: linear-gradient(135deg, #c92a35, #a31212);
+  transform: scale(1.05);
+}
+
+/* === Orders === */
+.orders-title {
+  text-align: center;
+  color: black;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.orders-container {
+  /* width: 85%; */
+  width: fit-content;
+  max-width: 900px;
+  margin: 20px auto;
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.orders-table th {
+  background: #111;
+  color: white;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.orders-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.orders-table tr:hover {
+  background: #fbe9eb;
+  transition: background 0.3s ease;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.status.pending {
+  color: #856404;
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+}
+
+.status.done {
+  color: #155724;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.status.canceled {
+  color: #721c24;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+.cancel-btn {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  background: linear-gradient(135deg, #e63946, #b71c1c);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(230, 57, 70, 0.25);
+}
+
+.cancel-btn:hover {
+  background: linear-gradient(135deg, #c92a35, #a31212);
+  transform: scale(1.05);
+}
+
+.no-orders {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 16px;
+  color: #666;
+}
+
+/* === Footer tetap di bawah === */
+.site-footer {
+  background: #111;
+  color: #eee;
+  padding: 1.25rem;
+  width: 100%;
+  margin-top: auto;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.footer-nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 0.5rem;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+  color: #e63946;
+}
+
+.copyright {
+  font-size: 0.85rem;
+  color: #bbb;
+}
+
+.reg-log {
+  text-align: center;
+  margin-top: 5px;
+}
+
+/* === Logo container === */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.logo-container img {
+  width: 250px;
+  height: auto;
+}
+
+/* === Dropdown === */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 6px 12px;
+  display: inline-block;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.dropbtn:hover {
+  color: #e63946;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  min-width: 140px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.15);
+  z-index: 1;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  color: #333;
+  padding: 8px 12px;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #f2f2f2;
+  color: #e63946;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* === Animasi === */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popUp {
+  from { transform: scale(0.7); }
+  to { transform: scale(1); }
+}
+
+/* === Responsive tweaks === */
+@media (max-width: 900px) {
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .nav-center {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  .nav-left, .nav-right {
+    flex: 1 1 100%;
+    justify-content: center;
+    margin: 5px 0;
+  }
+  main {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  .shop {
+    max-width: 100%;
+  }
+  .orders-container {
+    width: 95%;
+  }
+}
