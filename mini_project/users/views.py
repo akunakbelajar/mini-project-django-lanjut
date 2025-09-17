@@ -8,8 +8,9 @@ from django.contrib import messages
 
 def home_view(request):
     if request.user.is_authenticated:
-        return redirect('store')  # langsung ke store kalau sudah login
-    return render(request, 'users/home.html')  # kalau belum, tetap ke home
+        products = Product.objects.all()[:8] 
+        # return redirect('store')  # langsung ke store kalau sudah login
+    return render(request, 'users/home.html' , {"products": products})# kalau belum, tetap ke home
 
 
 def register_view(request):

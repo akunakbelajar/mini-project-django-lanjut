@@ -12,5 +12,8 @@ function togglePassword() {
 
 document.getElementById('year-2').textContent = new Date().getFullYear();
 
-
+function checkoutAlert(productName) {
+    alert("Pesanan anda telah di checkout, tunggu pesanannya.\nBarang: " + productName);
+    return true; // biar form tetap submit ke server
+  }
 

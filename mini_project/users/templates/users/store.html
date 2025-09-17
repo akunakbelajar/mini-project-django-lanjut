@@ -14,46 +14,49 @@
 
 <div class="shop">
   {% for product in products %}
-    <div class="card">
-      {% if product.image %}
-        <img src="{{ product.image.url }}" alt="{{ product.name }}">
-      {% else %}
-        <img src="{% static 'users/images/dell.jpg' %}" alt="{{ product.name }}">
-      {% endif %}
-      
-      <h2 class="info-st">{{ product.name }}</h2>
-      <p class="desc-st">{{ product.description }}</p>
-      <p class="price">Rp {{ product.price|floatformat:0|intcomma }}</p>
+  <div class="card"
+       onclick="openProductPopup('{{ product.id }}',
+                                  '{{ product.name|escapejs }}',
+                                  '{{ product.description|escapejs }}',
+                                  '{{ product.price|floatformat:0|intcomma }}',
+                                  '{% if product.image %}{{ product.image.url }}{% else %}{% static 'users/images/dell.jpg' %}{% endif %}')">
+    {% if product.image %}
+      <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    {% else %}
+      <img src="{% static 'users/images/dell.jpg' %}" alt="{{ product.name }}">
+    {% endif %}
 
-      {% if is_authenticated %}
-        <!-- Jika sudah login, bisa checkout -->
-        <form method="POST" action="{% url 'checkout' product.id %}">
-          {% csrf_token %}
-          <button type="submit" onclick="openPopup()">Checkout</button>
-        </form>
-      {% else %}
-        <!-- Jika belum login, hanya alert -->
-        <button type="button" onclick="alert('Harus register & login terlebih dahulu sebelum checkout!')">
-          Checkout
-        </button>
-      {% endif %}
-    </div>
+    <h2 class="info-st">{{ product.name }}</h2>
+    <p class="desc-st">{{ product.description }}</p>
+    <p class="price">Rp {{ product.price|floatformat:0|intcomma }}</p>
+  </div>
   {% empty %}
     <p>Tidak ada produk tersedia.</p>
   {% endfor %}
 </div>
 
-<!-- Popup -->
-<div id="popup" class="popup">
+<!-- Popup Produk -->
+<div id="product-popup" class="popup">
   <div class="popup-content">
-    <span class="close-btn" onclick="closePopup()">&times;</span>
-    <h2>Terimakasih Telah berbelanja di kami</h2>
-    <p class="info-checkout">
-      Pesanan Berhasil, belanjaanmu sedang kami siapkan.<br>
-      Kami akan segera memprosesnya.<br>
-      Terima kasih telah berbelanja bersama kami 😊
-    </p>
-    <button class="buy-button" type="button" onclick="closePopup()">Belanja Lagi</button>
+    <span class="close-btn" onclick="closeProductPopup()">&times;</span>
+    <img id="popup-img" src="" alt="Produk" class="popup-img"/>
+    <h2 id="popup-title"></h2>
+    <p id="popup-desc"></p>
+    <p id="popup-price" class="price"></p>
+
+    {% if user.is_authenticated %}
+    <form id="popup-form" method="POST">
+      {% csrf_token %}
+      <button type="submit">Checkout</button>
+    </form>
+    {% else %}
+    <button type="button" class="buy-button"
+      onclick="alert('Harus register & login terlebih dahulu sebelum checkout!')">
+      Checkout
+    </button>
+    {% endif %}
   </div>
 </div>
+
+
 {% endblock %}

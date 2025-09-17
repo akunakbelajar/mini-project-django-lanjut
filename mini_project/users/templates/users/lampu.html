@@ -9,31 +9,49 @@
 <h2 class="home-page">Produk Lampu</h2>
 
 <div class="shop">
-  {% for product in products %}
-    <div class="card">
-      {% if product.image %}
-        <img src="{{ product.image.url }}" alt="{{ product.name }}">
-      {% else %}
-        <img src="{% static 'users/images/noimage.jpg' %}" alt="{{ product.name }}">
-      {% endif %}
+  {% for lampu in products %}
+  <div class="card"
+       onclick="openProductPopup('{{ lampu.id }}',
+                                  '{{ lampu.name|escapejs }}',
+                                  '{{ lampu.description|escapejs }}',
+                                  '{{ lampu.price|floatformat:0|intcomma }}',
+                                  '{% if lampu.image %}{{ lampu.image.url }}{% else %}{% static 'users/images/noimage.jpg' %}{% endif %}')">
+    {% if lampu.image %}
+      <img src="{{ lampu.image.url }}" alt="{{ lampu.name }}">
+    {% else %}
+      <img src="{% static 'users/images/noimage.jpg' %}" alt="{{ lampu.name }}">
+    {% endif %}
 
-      <h2 class="info-st">{{ product.name }}</h2>
-      <p class="desc-st">{{ product.description }}</p>
-      <p class="price">Rp {{ product.price|floatformat:0|intcomma }}</p>
-
-      {% if user.is_authenticated %}
-        <form method="POST" action="{% url 'checkout' product.id %}">
-          {% csrf_token %}
-          <button type="submit" onclick="openPopup()">Checkout</button>
-        </form>
-      {% else %}
-        <button type="button" onclick="alert('Harus register & login terlebih dahulu sebelum checkout!')">
-          Checkout
-        </button>
-      {% endif %}
-    </div>
+    <h2 class="info-st">{{ lampu.name }}</h2>
+    <p class="desc-st">{{ lampu.description }}</p>
+    <p class="price">Rp {{ lampu.price|floatformat:0|intcomma }}</p>
+  </div>
   {% empty %}
     <p>Tidak ada produk lampu tersedia.</p>
   {% endfor %}
 </div>
+
+<!-- Popup Produk -->
+<div id="product-popup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closeProductPopup()">&times;</span>
+    <img id="popup-img" src="" alt="Produk" class="popup-img"/>
+    <h2 id="popup-title"></h2>
+    <p id="popup-desc"></p>
+    <p id="popup-price" class="price"></p>
+
+    {% if user.is_authenticated %}
+    <form id="popup-form" method="POST">
+      {% csrf_token %}
+      <button type="submit">Checkout</button>
+    </form>
+    {% else %}
+    <button type="button" class="buy-button"
+      onclick="alert('Harus register & login terlebih dahulu sebelum checkout!')">
+      Checkout
+    </button>
+    {% endif %}
+  </div>
+</div>
+
 {% endblock %}

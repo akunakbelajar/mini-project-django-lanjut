@@ -24,7 +24,7 @@ body {
 main {
   flex: 1; /* agar main menyesuaikan sisa tinggi */
   width: 100%;
-  max-width: 800px;
+  max-width: 1100px;
   margin: 2rem auto;
   padding: 2rem;
   background: #fff;
@@ -37,11 +37,18 @@ main {
 
 /* === Navbar === */
 header {
+  position: sticky;
+  top: 0; /* penting! supaya nempel di atas */
   width: 100%;
   background: linear-gradient(90deg, #ffffff, #f9f9f9);
   padding: 0.7rem 1rem;
   border-bottom: 1px solid #ddd;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  z-index: 1000; /* biar gak ketutupan konten lain */
+}
+
+.home-header{
+  margin: 30px;
 }
 
 nav {
@@ -493,7 +500,7 @@ a.logout-button {
   height: auto;
 }
 
-/* === Dropdown === */
+/* === Dropdown Modern Elegan === */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -503,47 +510,137 @@ a.logout-button {
   color: #333;
   text-decoration: none;
   font-weight: bold;
-  padding: 6px 12px;
+  padding: 8px 16px;
+  border-radius: 6px;
   display: inline-block;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
 }
 
-.dropbtn:hover {
+/* Efek hover langsung di Store */
+/* .dropbtn:hover {
   color: #e63946;
-}
+  background: linear-gradient(135deg, #fefefe, #f5f5f5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+} */
 
+/* Store tetap aktif saat dropdown terbuka */
+/* .dropdown:hover .dropbtn {
+  color: #e63946;
+  background: linear-gradient(135deg, #fefefe, #f5f5f5);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+} */
+
+/* === Isi Dropdown === */
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 100%;
+  top: 110%;
   left: 0;
-  background-color: #fff;
-  min-width: 140px;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.15);
-  z-index: 1;
-  border-radius: 6px;
+  background: #fff;
+  min-width: 180px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+  z-index: 10;
+  border-radius: 10px;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.35s ease;
+}
+
+/* Link dalam dropdown */
+.dropdown-content a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background: linear-gradient(135deg, #fbe9eb, #fff);
+  color: #e63946;
+  padding-left: 20px;
+}
+
+/* === Saat Hover Dropdown aktif === */
+.dropdown:hover .dropdown-content {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeIn 0.25s ease;
+}
+/* === Dropdown Modern Elegan Stay === */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+}
+
+/* Efek hover di tombol Store */
+/* .dropbtn:hover {
+  color: #e63946;
+  background: linear-gradient(135deg, #fefefe, #f5f5f5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+} */
+
+/* === Isi Dropdown === */
+.dropdown-content {
+  display: none;              /* default hidden */
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: #fff;
+  min-width: 180px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+  z-index: 10;
+  border-radius: 10px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.35s ease;
 }
 
 .dropdown-content a {
   color: #333;
-  padding: 8px 12px;
+  padding: 12px 16px;
   text-decoration: none;
   display: block;
-  transition: background 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-.dropdown-content a:hover {
-  background-color: #f2f2f2;
+/* .dropdown-content a:hover {
+  background: linear-gradient(135deg, #fbe9eb, #fff);
   color: #e63946;
-}
+  padding-left: 20px;
+} */
 
+/* === Hover Aktif: bikin stay === */
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: block;   /* bikin tetap stay */
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeIn 0.25s ease;
 }
 
-/* === Animasi === */
+/* === Animasi DropDown === */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -582,3 +679,142 @@ a.logout-button {
     width: 95%;
   }
 }
+
+/* === Footer Social Icons === */
+.footer-socials {
+  margin-top: 10px;
+}
+
+.footer-socials a {
+  margin: 0 8px;
+  font-size: 20px;
+  color: #eee;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.footer-socials a:hover {
+  color: #e63946;
+  transform: scale(1.2);
+}
+
+
+/* === Popup === */
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  width: 500px;
+  max-width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
+  transform: scale(0.7);
+  animation: popUp 0.4s ease forwards;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #444;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  color: red;
+  transform: scale(1.2);
+}
+
+.buy-button {
+  background: linear-gradient(135deg, #e63946, #b71c1c);
+  border: none;
+  width: 170px;
+  height: 40px;
+  border-radius: 25px;
+  margin-top: 15px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 5px 12px rgba(230, 57, 70, 0.3);
+}
+
+.buy-button:hover {
+  background: linear-gradient(135deg, #c92a35, #a31212);
+  transform: scale(1.05);
+}
+
+/* === Animasi Popup === */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popUp {
+  from { transform: scale(0.7); }
+  to { transform: scale(1); }
+}
+
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.cart-table th, .cart-table td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.remove-btn {
+  background-color: #e74c3c;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.remove-btn:hover {
+  background-color: #c0392b;
+}
+
+.checkout-btn {
+  background-color: #2ecc71;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.checkout-btn:hover {
+  background-color: #27ae60;
+}
+
+
+
