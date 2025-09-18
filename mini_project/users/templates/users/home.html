@@ -2,19 +2,23 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}Karbu / Throttle Body{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
 <div class="home-container">
 
-  <!-- Hero Banner -->
-  <div class="hero-banner">
-    <img src="{% static 'users/banner_h.jpeg' %}" alt="Banner Karbu/Throttle" class="hero-img">
-    <div class="hero-text">
-      <h1>Selamat Datang di Motopartz</h1>
-      <p>Temukan part otomotif terbaik untuk performa motor kesayanganmu 🚀</p>
-    </div>
+ <!-- Hero Banner -->
+<div class="hero-banner">
+  <video autoplay loop muted playsinline class="hero-img">
+    <source src="{% static 'users/video_hm.mp4' %}" type="video/mp4" />
+    Browser kamu tidak support video.
+  </video>
+  <div class="hero-text">
+    <h1>Selamat Datang di Motopartz</h1>
+    <p>Temukan part otomotif terbaik untuk performa motor kesayanganmu 🚀</p>
   </div>
+</div>
+
 
   {% if user.is_authenticated %}
     <p class="home-header">Halo, <b>{{ user.username }}</b>! Siap upgrade motor hari ini? 💨</p>
@@ -23,7 +27,7 @@
     <div class="category-section">
       <h2>Kategori Produk</h2>
       <div class="categories">
-        <a href="{% url 'karbu' %}" class="cat-card">Karburator</a>
+        <a href="{% url 'shock' %}" class="cat-card">Shock</a>
         <a href="{% url 'velg' %}" class="cat-card">Velg</a>
         <a href="{% url 'lampu' %}" class="cat-card">Lampu</a>
       </div>

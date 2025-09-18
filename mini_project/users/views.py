@@ -48,7 +48,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('store')  # langsung ke store setelah login
+            return redirect('home')  # langsung ke store setelah login
         else:
             return render(request, 'users/login.html', {
                 'error': 'Username/email atau password salah.'
@@ -150,6 +150,12 @@ def headsilinder_view(request):
 def krukas_view(request):
     products = Product.objects.filter(category='krukas')
     return render(request, 'users/krukas.html', {
+        'products': products,
+        'is_authenticated': request.user.is_authenticated
+    })
+def shock_view(request):
+    products = Product.objects.filter(category='shock')
+    return render(request, 'users/shock.html', {
         'products': products,
         'is_authenticated': request.user.is_authenticated
     })

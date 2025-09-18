@@ -14,22 +14,23 @@ html, body {
   line-height: 1.6;
 }
 
-/* === Layout Flex Utama === */
+/* === Layout Utama === */
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding-top: 80px; /* tinggi header */
 }
 
 main {
-  flex: 1; /* agar main menyesuaikan sisa tinggi */
+  flex: 1;
   width: 100%;
   max-width: 1100px;
   margin: 2rem auto;
   padding: 2rem;
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,18 +38,15 @@ main {
 
 /* === Navbar === */
 header {
-  position: sticky;
-  top: 0; /* penting! supaya nempel di atas */
+  position: fixed;
+  top: 0;
   width: 100%;
-  background: linear-gradient(90deg, #ffffff, #f9f9f9);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 0.7rem 1rem;
-  border-bottom: 1px solid #ddd;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  z-index: 1000; /* biar gak ketutupan konten lain */
-}
-
-.home-header{
-  margin: 30px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  z-index: 1000;
 }
 
 nav {
@@ -68,7 +66,6 @@ nav {
 .nav-center {
   gap: 20px;
   justify-content: center;
-  flex: 0 1 auto;
 }
 
 .nav-right a {
@@ -98,7 +95,6 @@ header nav a:hover {
 
 .logo-img {
   height: 60px;
-  width: auto;
   object-fit: contain;
   margin-right: 10px;
   transition: transform 0.3s ease;
@@ -143,16 +139,22 @@ form textarea:focus {
 }
 
 /* === Buttons === */
-button {
+button,
+.buy-button,
+.cancel-btn,
+.checkout-btn {
   padding: 0.7rem;
-  background: linear-gradient(135deg, #e63946, #b71c1c);
-  color: white;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s;
-  align-self: center;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+button {
+  background: linear-gradient(135deg, #e63946, #b71c1c);
+  color: white;
   min-width: 150px;
 }
 
@@ -161,71 +163,42 @@ button:hover {
   transform: scale(1.03);
 }
 
-/* === Links tambahan === */
-p {
-  text-align: center;
-  margin-top: 1rem;
+.buy-button {
+  width: 170px;
+  height: 40px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #e63946, #b71c1c);
+  box-shadow: 0px 5px 12px rgba(230, 57, 70, 0.3);
 }
 
-p a {
-  color: #e63946;
-  text-decoration: none;
-  font-weight: bold;
+.buy-button:hover {
+  background: linear-gradient(135deg, #c92a35, #a31212);
+  transform: scale(1.05);
 }
 
-p a:hover {
-  text-decoration: underline;
+.cancel-btn {
+  font-size: 13px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #e63946, #b71c1c);
+  box-shadow: 0 3px 6px rgba(230, 57, 70, 0.25);
 }
 
-a.logout-button {
-  font-size: large;
-  font-weight: bold;
-  text-decoration: none;
-  color: #e63946;
-  transition: color 0.3s ease;
+.cancel-btn:hover {
+  background: linear-gradient(135deg, #c92a35, #a31212);
+  transform: scale(1.05);
 }
 
-.logout-button:hover {
-  color: #555;
+.checkout-btn {
+  background-color: #2ecc71;
+  color: white;
+  font-size: 16px;
 }
 
-/* === Input dengan icon === */
-.input-box {
-  position: relative;
-  width: 100%;
-  margin-bottom: 1rem;
+.checkout-btn:hover {
+  background-color: #27ae60;
 }
 
-.input-box input {
-  width: 100%;
-  padding: 10px 40px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-.input-box .user-icon,
-.input-box .lock-icon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
-  color: #666;
-  pointer-events: none;
-}
-
-#toggleBtn {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-/* === Shop & Cards === */
+/* === Cards === */
 .shop {
   display: flex;
   gap: 15px;
@@ -238,7 +211,6 @@ a.logout-button {
 .card {
   background: #fff;
   width: 170px;
-  color: black;
   border-radius: 12px;
   font-size: small;
   display: flex;
@@ -269,14 +241,11 @@ a.logout-button {
   color: #222;
 }
 
-.info-st, .desc-st, .price {
-  color: black;
-}
-
 .price {
   font-size: 14px;
   font-weight: bold;
   margin-top: 5px;
+  color: #e63946;
 }
 
 /* === Popup === */
@@ -292,7 +261,9 @@ a.logout-button {
 }
 
 .popup-content {
-  background: #fff;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 20px;
   border-radius: 15px;
   width: 500px;
@@ -302,6 +273,8 @@ a.logout-button {
   box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
   transform: scale(0.7);
   animation: popUp 0.4s ease forwards;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
 }
 
 .close-btn {
@@ -310,33 +283,13 @@ a.logout-button {
   right: 15px;
   font-size: 22px;
   cursor: pointer;
-  color: #444;
+  color: #fff;
   transition: 0.3s;
 }
 
 .close-btn:hover {
-  color: red;
+  color: #e63946;
   transform: scale(1.2);
-}
-
-.buy-button {
-  background: linear-gradient(135deg, #e63946, #b71c1c);
-  border: none;
-  width: 170px;
-  height: 40px;
-  border-radius: 25px;
-  margin-top: 15px;
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0px 5px 12px rgba(230, 57, 70, 0.3);
-}
-
-.buy-button:hover {
-  background: linear-gradient(135deg, #c92a35, #a31212);
-  transform: scale(1.05);
 }
 
 /* === Orders === */
@@ -349,8 +302,6 @@ a.logout-button {
 }
 
 .orders-container {
-  /* width: 85%; */
-  width: fit-content;
   max-width: 900px;
   margin: 20px auto;
   overflow-x: auto;
@@ -390,6 +341,7 @@ a.logout-button {
   transition: background 0.3s ease;
 }
 
+/* === Status Badges === */
 .status {
   padding: 5px 10px;
   border-radius: 6px;
@@ -415,33 +367,7 @@ a.logout-button {
   border: 1px solid #f5c6cb;
 }
 
-.cancel-btn {
-  display: inline-block;
-  margin-top: 6px;
-  padding: 6px 14px;
-  font-size: 13px;
-  background: linear-gradient(135deg, #e63946, #b71c1c);
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 6px rgba(230, 57, 70, 0.25);
-}
-
-.cancel-btn:hover {
-  background: linear-gradient(135deg, #c92a35, #a31212);
-  transform: scale(1.05);
-}
-
-.no-orders {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 16px;
-  color: #666;
-}
-
-/* === Footer tetap di bawah === */
+/* === Footer === */
 .site-footer {
   background: #111;
   color: #eee;
@@ -460,11 +386,6 @@ a.logout-button {
   flex-wrap: wrap;
 }
 
-.brand {
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
 .footer-nav a {
   color: white;
   text-decoration: none;
@@ -478,29 +399,19 @@ a.logout-button {
   color: #e63946;
 }
 
-.copyright {
-  font-size: 0.85rem;
-  color: #bbb;
+.footer-socials a {
+  margin: 0 8px;
+  font-size: 20px;
+  color: #eee;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
-.reg-log {
-  text-align: center;
-  margin-top: 5px;
+.footer-socials a:hover {
+  color: #e63946;
+  transform: scale(1.2);
 }
 
-/* === Logo container === */
-.logo-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-.logo-container img {
-  width: 250px;
-  height: auto;
-}
-
-/* === Dropdown Modern Elegan === */
+/* === Dropdown === */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -512,27 +423,10 @@ a.logout-button {
   font-weight: bold;
   padding: 8px 16px;
   border-radius: 6px;
-  display: inline-block;
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
-/* Efek hover langsung di Store */
-/* .dropbtn:hover {
-  color: #e63946;
-  background: linear-gradient(135deg, #fefefe, #f5f5f5);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-} */
-
-/* Store tetap aktif saat dropdown terbuka */
-/* .dropdown:hover .dropbtn {
-  color: #e63946;
-  background: linear-gradient(135deg, #fefefe, #f5f5f5);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-} */
-
-/* === Isi Dropdown === */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -541,15 +435,14 @@ a.logout-button {
   background: #fff;
   min-width: 180px;
   box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
-  z-index: 10;
   border-radius: 10px;
   overflow: hidden;
   opacity: 0;
   transform: translateY(15px);
   transition: all 0.35s ease;
+  z-index: 10;
 }
 
-/* Link dalam dropdown */
 .dropdown-content a {
   color: #333;
   padding: 12px 16px;
@@ -566,81 +459,13 @@ a.logout-button {
   padding-left: 20px;
 }
 
-/* === Saat Hover Dropdown aktif === */
 .dropdown:hover .dropdown-content {
   display: block;
   opacity: 1;
   transform: translateY(0);
-  animation: fadeIn 0.25s ease;
-}
-/* === Dropdown Modern Elegan Stay === */
-.dropdown {
-  position: relative;
-  display: inline-block;
 }
 
-.dropbtn {
-  color: #333;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 8px 16px;
-  border-radius: 6px;
-  display: inline-block;
-  transition: all 0.3s ease;
-  cursor: pointer;
-
-}
-
-/* Efek hover di tombol Store */
-/* .dropbtn:hover {
-  color: #e63946;
-  background: linear-gradient(135deg, #fefefe, #f5f5f5);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-} */
-
-/* === Isi Dropdown === */
-.dropdown-content {
-  display: none;              /* default hidden */
-  position: absolute;
-  top: 110%;
-  left: 0;
-  background: #fff;
-  min-width: 180px;
-  box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
-  z-index: 10;
-  border-radius: 10px;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(15px);
-  transition: all 0.35s ease;
-}
-
-.dropdown-content a {
-  color: #333;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-/* .dropdown-content a:hover {
-  background: linear-gradient(135deg, #fbe9eb, #fff);
-  color: #e63946;
-  padding-left: 20px;
-} */
-
-/* === Hover Aktif: bikin stay === */
-.dropdown:hover .dropdown-content {
-  display: block;   /* bikin tetap stay */
-  opacity: 1;
-  transform: translateY(0);
-  animation: fadeIn 0.25s ease;
-}
-
-/* === Animasi DropDown === */
+/* === Animasi === */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -651,7 +476,7 @@ a.logout-button {
   to { transform: scale(1); }
 }
 
-/* === Responsive tweaks === */
+/* === Responsive === */
 @media (max-width: 900px) {
   nav {
     flex-wrap: wrap;
@@ -679,142 +504,3 @@ a.logout-button {
     width: 95%;
   }
 }
-
-/* === Footer Social Icons === */
-.footer-socials {
-  margin-top: 10px;
-}
-
-.footer-socials a {
-  margin: 0 8px;
-  font-size: 20px;
-  color: #eee;
-  transition: color 0.3s ease, transform 0.2s ease;
-}
-
-.footer-socials a:hover {
-  color: #e63946;
-  transform: scale(1.2);
-}
-
-
-/* === Popup === */
-.popup {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.popup-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 15px;
-  width: 500px;
-  max-width: 90%;
-  text-align: center;
-  position: relative;
-  box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
-  transform: scale(0.7);
-  animation: popUp 0.4s ease forwards;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 22px;
-  cursor: pointer;
-  color: #444;
-  transition: 0.3s;
-}
-
-.close-btn:hover {
-  color: red;
-  transform: scale(1.2);
-}
-
-.buy-button {
-  background: linear-gradient(135deg, #e63946, #b71c1c);
-  border: none;
-  width: 170px;
-  height: 40px;
-  border-radius: 25px;
-  margin-top: 15px;
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0px 5px 12px rgba(230, 57, 70, 0.3);
-}
-
-.buy-button:hover {
-  background: linear-gradient(135deg, #c92a35, #a31212);
-  transform: scale(1.05);
-}
-
-/* === Animasi Popup === */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes popUp {
-  from { transform: scale(0.7); }
-  to { transform: scale(1); }
-}
-
-
-.cart-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-}
-
-.cart-table th, .cart-table td {
-  padding: 12px 15px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-}
-
-.cart-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-}
-
-.remove-btn {
-  background-color: #e74c3c;
-  color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.remove-btn:hover {
-  background-color: #c0392b;
-}
-
-.checkout-btn {
-  background-color: #2ecc71;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 15px;
-  font-size: 16px;
-}
-
-.checkout-btn:hover {
-  background-color: #27ae60;
-}
-
-
-

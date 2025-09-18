@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Produk Shock Breaker{% endblock %}
+
+{% block content %}
+<h2 class="home-page">Produk Shock Breaker</h2>
+
+<div class="shop">
+  {% for product in products %}
+    <div class="card" 
+         onclick="openProductPopup('{{ product.id }}',
+                                    '{{ product.name|escapejs }}',
+                                    '{{ product.description|escapejs }}',
+                                    '{{ product.price|floatformat:0|intcomma }}',
+                                    '{% if product.image %}{{ product.image.url }}{% else %}{% static 'users/images/noimage.jpg' %}{% endif %}')">
+
+      {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      {% else %}
+        <img src="{% static 'users/images/noimage.jpg' %}" alt="{{ product.name }}">
+      {% endif %}
+
+      <h2 class="info-st">{{ product.name }}</h2>
+      <p class="desc-st">{{ product.description }}</p>
+      <p class="price">Rp {{ product.price|floatformat:0|intcomma }}</p>
+    </div>
+  {% empty %}
+    <p>Tidak ada produk Shock Breaker</p>
+  {% endfor %}
+</div>
+
+<!-- Popup Produk -->
+<div id="product-popup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closeProductPopup()">&times;</span>
+    <img id="popup-img" src="" alt="Produk" class="popup-img"/>
+    <h2 id="popup-title"></h2>
+    <p id="popup-desc"></p>
+    <p id="popup-price" class="price"></p>
+
+    {% if user.is_authenticated %}
+      <form id="popup-form" method="POST">
+        {% csrf_token %}
+        <button type="submit">Checkout</button>
+      </form>
+    {% else %}
+      <button type="button" class="buy-button" onclick="alert('Harus register & login terlebih dahulu sebelum checkout!')">
+        Checkout
+      </button>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
